@@ -1,5 +1,6 @@
 #pragma once
 #include "Tictactoe.h"
+#include <graphics.h>
 #ifndef __GUI_H
 #define __GUI_H
 

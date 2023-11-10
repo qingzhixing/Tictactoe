@@ -20,6 +20,7 @@ bool Tictactoe::DropDown(const ChessPieceType& piece, const Coord& coord)
 	}
 	if (chessboard[coord.x][coord.y] != EMPTY)return false;
 	chessboard[coord.x][coord.y] = piece;
+	NextPiece();
 }
 
 bool Tictactoe::DropDown(const Coord& coord)
@@ -77,4 +78,12 @@ void Tictactoe::NextPiece()
 {
 	if (currentPiece == CIRCLE)currentPiece = FORK;
 	else currentPiece = CIRCLE;
+}
+
+ChessPieceType Tictactoe::GetPiece(const Coord& coord) const
+{
+	if (coord.x < 1 || coord.x>3 || coord.y < 1 || coord.y>3) {
+		throw("Invalid Coordinate");
+	}
+	return chessboard[coord.x][coord.y];
 }

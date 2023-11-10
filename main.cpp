@@ -12,8 +12,8 @@ void MessageHandler(const ExMessage& exMessage) {
 	if (exMessage.message == WM_LBUTTONDOWN) {
 		// 根据点按位置计算落子地点
 		Coord index = {
-			exMessage.x / TictactoeGUI::gridSize,
-			exMessage.y / TictactoeGUI::gridSize
+			exMessage.x / TictactoeGUI::gridSize + 1,
+			exMessage.y / TictactoeGUI::gridSize + 1
 		};
 		auto success = tictactoe.DropDown(index);
 		if (success == false) {
@@ -27,14 +27,17 @@ void DataHandler() {
 	if (winner != EMPTY) {
 		if (winner == CIRCLE) {
 			MessageBox(GetHWnd(), _T("Player O Wins!"), _T("Game Over"), MB_OK);
+			needExit = true;
 		}
 		else {
 			MessageBox(GetHWnd(), _T("Player X Wins!"), _T("Game Over"), MB_OK);
+			needExit = true;
 		}
 	}
 	else {
 		if (!tictactoe.ExistGridEmpty()) {
 			MessageBox(GetHWnd(), _T("Draw! No Winner!"), _T("Game Over"), MB_OK);
+			needExit = true;
 		}
 	}
 }
@@ -49,13 +52,13 @@ int main() {
 		ExMessage exMessage;
 		while (peekmessage(&exMessage))MessageHandler(exMessage);
 
+		// 绘制
+		cleardevice();
+		tictactoeGUI.Draw();
+		FlushBatchDraw();
+
 		// 处理数据
 		DataHandler();
-
-		// 绘制
-		tictactoeGUI.Draw();
-		cleardevice();
-		FlushBatchDraw();
 	}
 
 	EndBatchDraw();

@@ -40,6 +40,8 @@ public:
 
 	// 切换到下一个种类的棋子
 	void NextPiece();
+
+	ChessPieceType GetPiece(const Coord& coord)const;
 private:
 	ChessPieceType chessboard[4][4];
 	ChessPieceType currentPiece;
