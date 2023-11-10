@@ -8,4 +8,4 @@ EasyX安装：[EasyX Graphics Library for C++](https://easyx.cn/)
 
 ## 🍧 游戏界面
 
-![1699619768971](static\游戏界面.jpg)
+![1699619768971](./static/游戏界面.jpg)
