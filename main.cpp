@@ -48,6 +48,8 @@ int main() {
 	initgraph(TictactoeGUI::windowSize, TictactoeGUI::windowSize);
 	BeginBatchDraw();
 	while (!needExit) {
+		DWORD startTime = GetTickCount();
+
 		// 消息处理
 		ExMessage exMessage;
 		while (peekmessage(&exMessage))MessageHandler(exMessage);
@@ -59,6 +61,13 @@ int main() {
 
 		// 处理数据
 		DataHandler();
+
+		DWORD endTime = GetTickCount();
+		DWORD deltaTime = endTime - startTime;
+		// 锁定刷新率60fps
+		if (deltaTime < 1000 / 60) {
+			Sleep(1000 / 60 - deltaTime);
+		}
 	}
 
 	EndBatchDraw();
