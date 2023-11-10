@@ -1,5 +1,11 @@
 #include "Tictactoe.h"
 
+Tictactoe::Tictactoe()
+{
+	ClearChessboard();
+	currentPiece = CIRCLE;
+}
+
 void Tictactoe::ClearChessboard()
 {
 	for (int i = 0; i < 4; i++)
@@ -7,12 +13,18 @@ void Tictactoe::ClearChessboard()
 			chessboard[i][j] = EMPTY;
 }
 
-void Tictactoe::DropDown(const ChessPieceType& piece, const Coord& coord)
+bool Tictactoe::DropDown(const ChessPieceType& piece, const Coord& coord)
 {
 	if (coord.x < 1 || coord.x>3 || coord.y < 1 || coord.y>3) {
 		throw("Invalid Coordinate");
 	}
+	if (chessboard[coord.x][coord.y] != EMPTY)return false;
 	chessboard[coord.x][coord.y] = piece;
+}
+
+bool Tictactoe::DropDown(const Coord& coord)
+{
+	return DropDown(currentPiece, coord);
 }
 
 ChessPieceType Tictactoe::CheckWin()
@@ -54,4 +66,15 @@ bool Tictactoe::ExistGridEmpty()
 			if (chessboard[i][j] == EMPTY)
 				return true;
 	return false;
+}
+
+ChessPieceType Tictactoe::CurrentPiece() const
+{
+	return currentPiece;
+}
+
+void Tictactoe::NextPiece()
+{
+	if (currentPiece == CIRCLE)currentPiece = FORK;
+	else currentPiece = CIRCLE;
 }
